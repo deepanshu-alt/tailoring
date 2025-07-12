@@ -65,6 +65,15 @@
             animation: aurora 8s ease-in-out infinite;
         }
         
+        @media only screen and (max-width: 768px) {
+ 
+ .forlap {
+            display: none;
+        }
+
+    }
+
+
         @keyframes aurora {
             0%, 100% { opacity: 0.3; }
             50% { opacity: 0.7; }
@@ -655,28 +664,28 @@
         <div class="laser-line" style="top: 70%; animation-delay: 3s;"></div>
         
         <!-- Enhanced Floating Elements -->
-        <div class="floating-element top-20 left-10 float-animation">
+        <div class="floating-element top-20 left-10 float-animation forlap">
             <div class="holographic-card floating-card">
                 <div class="measurement-tape"></div>
                 <p class="text-xs mt-2 text-center font-orbitron">Precision Measuring</p>
                 <div class="scanner-line"></div>
             </div>
         </div>
-        <div class="floating-element top-40 right-20 float-animation" style="animation-delay: 1s;">
+        <div class="floating-element top-40 right-20 float-animation forlap" style="animation-delay: 1s;">
             <div class="holographic-card floating-card text-center">
                 <i class="fas fa-cut scissors"></i>
                 <p class="text-xs mt-2 font-orbitron">Quantum Cutting</p>
                 <div class="scanner-line"></div>
             </div>
         </div>
-        <div class="floating-element bottom-32 left-20 float-animation" style="animation-delay: 2s;">
+        <div class="floating-element bottom-32 left-20 float-animation forlap" style="animation-delay: 2s;">
             <div class="holographic-card floating-card text-center">
                 <div class="thread mx-auto"></div>
                 <p class="text-xs mt-2 font-orbitron">Nano Threads</p>
                 <div class="scanner-line"></div>
             </div>
         </div>
-        <div class="floating-element top-60 right-40 float-animation" style="animation-delay: 0.5s;">
+        <div class="floating-element top-60 right-40 float-animation forlap" style="animation-delay: 0.5s;">
             <div class="holographic-card floating-card text-center">
                 <i class="fas fa-tshirt text-3xl text-white"></i>
                 <p class="text-xs mt-2 font-orbitron">Custom Fit</p>
