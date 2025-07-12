@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artisan Tailors - Where Craftsmanship Meets the Future</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MorphSVGPlugin.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --futuristic-gradient: linear-gradient(135deg, #00d4ff 0%, #8a2be2 50%, #ff006e 100%);
+            --neon-blue: #00d4ff;
+            --neon-purple: #8a2be2;
+            --neon-pink: #ff006e;
+        }
+        
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        .font-orbitron { font-family: 'Orbitron', monospace; }
+        
+        .gradient-text {
+            background: var(--futuristic-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 3s ease-in-out infinite;
+        }
+        
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 0, 110, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(138, 43, 226, 0.1) 0%, transparent 50%);
+            animation: aurora 8s ease-in-out infinite;
+        }
+        
+        @keyframes aurora {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+        
+        .floating-element {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .floating-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .floating-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.4);
+            border-color: rgba(255, 0, 110, 0.5);
+        }
+        
+        .holographic-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .holographic-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            animation: holographic-shine 3s linear infinite;
+        }
+        
+        @keyframes holographic-shine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .measurement-tape {
+            width: 200px;
+            height: 20px;
+            background: linear-gradient(90deg, #00d4ff, #8a2be2, #ff006e);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            animation: neon-pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes neon-pulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(0, 212, 255, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.8), 0 0 30px rgba(138, 43, 226, 0.6); }
+        }
+        
+        .measurement-tape::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(90deg, transparent, transparent 9px, rgba(255,255,255,0.3) 9px, rgba(255,255,255,0.3) 10px);
+        }
+        
+        .scissors {
+            font-size: 2rem;
+            color: #00d4ff;
+            transform: rotate(-45deg);
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+            animation: scissors-float 3s ease-in-out infinite;
+        }
+        
+        @keyframes scissors-float {
+            0%, 100% { transform: rotate(-45deg) translateY(0px); }
+            50% { transform: rotate(-45deg) translateY(-10px); }
+        }
+        
+        .thread {
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(180deg, #ff006e, #8a2be2);
+            border-radius: 1px;
+            box-shadow: 0 0 10px rgba(255, 0, 110, 0.6);
+            animation: thread-glow 2s ease-in-out infinite;
+        }
+        
+        @keyframes thread-glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(255, 0, 110, 0.6); }
+            50% { box-shadow: 0 0 20px rgba(255, 0, 110, 0.9), 0 0 30px rgba(138, 43, 226, 0.7); }
+        }
+        
+        .needle-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .needle-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(90deg);
+            font-size: 2rem;
+            color: #00d4ff;
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.8);
+            z-index: 10;
+            animation: needle-pierce 4s ease-in-out infinite;
+        }
+        
+        @keyframes needle-pierce {
+            0% { transform: translate(-150%, -50%) rotate(90deg); opacity: 0; }
+            25% { transform: translate(-50%, -50%) rotate(90deg); opacity: 1; }
+            75% { transform: translate(-50%, -50%) rotate(90deg); opacity: 1; }
+            100% { transform: translate(50%, -50%) rotate(90deg); opacity: 0; }
+        }
+        
+        .crafting-text {
+            position: relative;
+            display: inline-block;
+            background: var(--futuristic-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .crafting-text::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            transform: translateY(-50%);
+            animation: thread-line 4s ease-in-out infinite;
+        }
+        
+        @keyframes thread-line {
+            0% { opacity: 0; transform: translateY(-50%) scaleX(0); }
+            25% { opacity: 1; transform: translateY(-50%) scaleX(1); }
+            75% { opacity: 1; transform: translateY(-50%) scaleX(1); }
+            100% { opacity: 0; transform: translateY(-50%) scaleX(0); }
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+        
+        .neon-border {
+            border: 2px solid transparent;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 110, 0.1)) border-box;
+            border-image: linear-gradient(135deg, #00d4ff, #ff006e) 1;
+        }
+        
+        .btn-primary {
+            background: var(--futuristic-gradient);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 212, 255, 0.5), 0 5px 15px rgba(255, 0, 110, 0.3);
+        }
+        
+        .futuristic-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            backdrop-filter: blur(10px);
+            color: white;
+            transition: all 0.3s ease;
+            border-radius: 10px;
+        }
+        
+        .futuristic-input:focus {
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+            outline: none;
+        }
+        
+        .futuristic-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .particle-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00d4ff;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: particle-float 6s linear infinite;
+        }
+        
+        @keyframes particle-float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        .typewriter-cursor {
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .morphing-blob {
+            background: linear-gradient(45deg, rgba(0, 212, 255, 0.1), rgba(138, 43, 226, 0.1), rgba(255, 0, 110, 0.1));
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: blob-morph 12s ease-in-out infinite;
+        }
+        
+        @keyframes blob-morph {
+            0%, 100% { border-radius: 50% 50% 50% 50%; transform: rotate(0deg); }
+            20% { border-radius: 60% 40% 60% 40%; transform: rotate(72deg); }
+            40% { border-radius: 40% 60% 40% 60%; transform: rotate(144deg); }
+            60% { border-radius: 70% 30% 70% 30%; transform: rotate(216deg); }
+            80% { border-radius: 30% 70% 30% 70%; transform: rotate(288deg); }
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            background: var(--futuristic-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5));
+        }
+        
+        .stats-counter {
+            font-size: 3rem;
+            font-weight: bold;
+            background: var(--futuristic-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .gallery-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .gallery-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 212, 255, 0.3);
+            border-color: rgba(255, 0, 110, 0.5);
+        }
+        
+        .gallery-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-card:hover::after {
+            opacity: 1;
+        }
+        
+        .process-step {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .process-step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 110, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .process-step:hover::before {
+            opacity: 1;
+        }
+        
+        .process-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--futuristic-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00d4ff, #8a2be2, #ff006e);
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .testimonial-card:hover::before {
+            opacity: 1;
+        }
+        
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0, 212, 255, 0.8), rgba(255, 0, 110, 0.8));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            backdrop-filter: blur(5px);
+        }
+        
+        .image-hover:hover .image-overlay {
+            opacity: 1;
+        }
+        
+        .glitch-effect {
+            position: relative;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            animation: glitch 2s infinite;
+        }
+        
+        .glitch-effect::before,
+        .glitch-effect::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch-effect::before {
+            animation: glitch-1 2s infinite;
+            color: #00d4ff;
+            z-index: -1;
+        }
+        
+        .glitch-effect::after {
+            animation: glitch-2 2s infinite;
+            color: #ff006e;
+            z-index: -2;
+        }
+        
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+        
+        @keyframes glitch-1 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(2px, -2px); }
+            40% { transform: translate(-2px, 2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(-2px, -2px); }
+        }
+        
+        @keyframes glitch-2 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(2px, -2px); }
+            60% { transform: translate(-2px, -2px); }
+            80% { transform: translate(2px, 2px); }
+        }
+        
+        .cyber-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: grid-move 20s linear infinite;
+            opacity: 0.3;
+        }
+        
+        @keyframes grid-move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .laser-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: laser-sweep 3s linear infinite;
+        }
+        
+        @keyframes laser-sweep {
+            0% { left: -100%; width: 0; }
+            50% { left: 0; width: 100%; }
+            100% { left: 100%; width: 0; }
+        }
+        
+        .floating-geometric {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(0, 212, 255, 0.05);
+            animation: float-rotate 8s ease-in-out infinite;
+        }
+        
+        @keyframes float-rotate {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .scanner-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: scan 2s linear infinite;
+        }
+        
+        @keyframes scan {
+            0% { top: 0; opacity: 0; }
+            50% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+        
+        .hologram-text {
+            background: linear-gradient(45deg, #00d4ff, #8a2be2, #ff006e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            animation: hologram-flicker 3s ease-in-out infinite;
+        }
+        
+        @keyframes hologram-flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-inter overflow-x-hidden">
+    <!-- Particle Background -->
+    <div class="particle-bg" id="particleBackground"></div>
+    
+    <!-- Cyber Grid -->
+    <div class="cyber-grid"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-effect">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-cut text-2xl gradient-text"></i>
+                    <span class="text-xl font-playfair font-bold hologram-text">Artisan Tailors</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="hover:text-purple-400 transition-colors font-orbitron">Home</a>
+                    <a href="#gallery" class="hover:text-purple-400 transition-colors font-orbitron">Gallery</a>
+                    <a href="#services" class="hover:text-purple-400 transition-colors font-orbitron">Services</a>
+                    <a href="#process" class="hover:text-purple-400 transition-colors font-orbitron">Process</a>
+                    <a href="#about" class="hover:text-purple-400 transition-colors font-orbitron">About</a>
+                    <a href="#appointment" class="hover:text-purple-400 transition-colors font-orbitron">Book Now</a>
+                </div>
+                <button class="md:hidden">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg min-h-screen flex items-center justify-center relative">
+        <!-- Floating Geometric Shapes -->
+        <div class="floating-geometric" style="top: 10%; left: 10%; animation-delay: 0s;"></div>
+        <div class="floating-geometric" style="top: 20%; right: 15%; animation-delay: 2s; border-radius: 50%;"></div>
+        <div class="floating-geometric" style="bottom: 15%; left: 20%; animation-delay: 4s; transform: rotate(45deg);"></div>
+        <div class="floating-geometric" style="bottom: 25%; right: 10%; animation-delay: 6s; border-radius: 50%;"></div>
+        
+        <!-- Laser Lines -->
+        <div class="laser-line" style="top: 30%; animation-delay: 1s;"></div>
+        <div class="laser-line" style="top: 70%; animation-delay: 3s;"></div>
+        
+        <!-- Enhanced Floating Elements -->
+        <div class="floating-element top-20 left-10 float-animation">
+            <div class="holographic-card floating-card">
+                <div class="measurement-tape"></div>
+                <p class="text-xs mt-2 text-center font-orbitron">Precision Measuring</p>
+                <div class="scanner-line"></div>
+            </div>
+        </div>
+        <div class="floating-element top-40 right-20 float-animation" style="animation-delay: 1s;">
+            <div class="holographic-card floating-card text-center">
+                <i class="fas fa-cut scissors"></i>
+                <p class="text-xs mt-2 font-orbitron">Quantum Cutting</p>
+                <div class="scanner-line"></div>
+            </div>
+        </div>
+        <div class="floating-element bottom-32 left-20 float-animation" style="animation-delay: 2s;">
+            <div class="holographic-card floating-card text-center">
+                <div class="thread mx-auto"></div>
+                <p class="text-xs mt-2 font-orbitron">Nano Threads</p>
+                <div class="scanner-line"></div>
+            </div>
+        </div>
+        <div class="floating-element top-60 right-40 float-animation" style="animation-delay: 0.5s;">
+            <div class="holographic-card floating-card text-center">
+                <i class="fas fa-tshirt text-3xl text-white"></i>
+                <p class="text-xs mt-2 font-orbitron">Custom Fit</p>
+                <div class="scanner-line"></div>
+            </div>
+        </div>
+        
+        <!-- Enhanced Morphing Blobs -->
+        <div class="morphing-blob w-96 h-96 absolute top-10 left-10"></div>
+        <div class="morphing-blob w-64 h-64 absolute bottom-20 right-20" style="animation-delay: 4s;"></div>
+        <div class="morphing-blob w-32 h-32 absolute top-1/2 left-1/4" style="animation-delay: 8s;"></div>
+        
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-5xl md:text-7xl font-playfair font-bold mb-6 leading-tight">
+                    <span class="block hologram-text">Artisan</span>
+                    <div class="needle-container">
+                        <span class="crafting-text">Crafting</span>
+                        <i class="fas fa-cut needle-icon"> </i></div>
+                    <span class="block gradient-text">Excellence</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-gray-300 font-inter">
+                    Where traditional craftsmanship meets <span class="hologram-text">futuristic precision</span>
+                </p>
+                <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+                    <button class="btn-primary px-8 py-4 rounded-full text-lg font-semibold font-orbitron">
+                        Book Consultation
+                    </button>
+                    <button class="glass-effect px-8 py-4 rounded-full text-lg font-semibold font-orbitron hover:bg-white hover:bg-opacity-10 transition-all">
+                        View Gallery
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-20 glass-effect">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="stats-counter" data-target="500">0</div>
+                    <p class="text-gray-400 font-orbitron">Satisfied Clients</p>
+                </div>
+                <div>
+                    <div class="stats-counter" data-target="15">0</div>
+                    <p class="text-gray-400 font-orbitron">Years Experience</p>
+                </div>
+                <div>
+                    <div class="stats-counter" data-target="1000">0</div>
+                    <p class="text-gray-400 font-orbitron">Custom Pieces</p>
+                </div>
+                <div>
+                    <div class="stats-counter" data-target="98">0</div>
+                    <p class="text-gray-400 font-orbitron">Satisfaction Rate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-playfair font-bold mb-6 gradient-text">
+                    Digital Showcase
+                </h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Explore our collection of precision-crafted garments
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="gallery-card p-6 group">
+                    <div class="relative overflow-hidden rounded-lg mb-4 image-hover">
+                        <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=300&fit=crop" 
+                             alt="Custom Suit" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
+                        <div class="image-overlay">
+                            <span>Premium Suits</span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 hologram-text">Executive Collection</h3>
+                    <p class="text-gray-400">Precision-tailored business attire</p>
+                </div>
+                
+                <div class="gallery-card p-6 group">
+                    <div class="relative overflow-hidden rounded-lg mb-4 image-hover">
+                        <img src="https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?w=400&h=300&fit=crop" 
+                             alt="Wedding Dress" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
+                        <div class="image-overlay">
+                            <span>Wedding Couture</span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 hologram-text">Bridal Elegance</h3>
+                    <p class="text-gray-400">Dream wedding attire</p>
+                </div>
+                
+                <div class="gallery-card p-6 group">
+                    <div class="relative overflow-hidden rounded-lg mb-4 image-hover">
+                        <img src="https://images.unsplash.com/photo-1581803118522-7b72a50f7e9f?w=400&h=300&fit=crop" 
+                             alt="Casual Wear" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
+                        <div class="image-overlay">
+                            <span>Casual Luxury</span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 hologram-text">Casual Couture</h3>
+                    <p class="text-gray-400">Everyday elegance</p>
+                </div>
+                
+                <div class="gallery-card p-6 group">
+                    <div class="relative overflow-hidden rounded-lg mb-4 image-hover">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop" 
+                             alt="Formal Wear" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
+                        <div class="image-overlay">
+                            <span>Formal Collection</span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 hologram-text">Evening Wear</h3>
+                    <p class="text-gray-400">Sophisticated formal attire</p>
+                </div>
+                
+                <div class="gallery-card p-6 group">
+                    <div class="relative overflow-hidden rounded-lg mb-4 image-hover">
+                        <img src="https://images.unsplash.com/photo-1564859228273-274232fdb516?w=400&h=300&fit=crop" 
+                             alt="Accessories" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
+                        <div class="image-overlay">
+                            <span>Luxury Accessories</span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 hologram-text">Accessories</h3>
+                    <p class="text-gray-400">Perfect finishing touches</p>
+                </div>
+                
+                <div class="gallery-card p-6 group">
+                    <div class="relative overflow-hidden rounded-lg mb-4 image-hover">
+                        <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=400&h=300&fit=crop" 
+                             alt="Alterations" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
+                        <div class="image-overlay">
+                            <span>Expert Alterations</span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 hologram-text">Alterations</h3>
+                    <p class="text-gray-400">Precision modifications</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 glass-effect">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-playfair font-bold mb-6 gradient-text">
+                    Our Services
+                </h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Comprehensive tailoring solutions for every occasion
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="holographic-card p-8 text-center">
+                    <div class="service-icon mb-6">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 hologram-text">Custom Suits</h3>
+                    <p class="text-gray-400 mb-6">Perfectly fitted suits tailored to your exact measurements and style preferences</p>
+                    <div class="scanner-line"></div>
+                </div>
+                
+                <div class="holographic-card p-8 text-center">
+                    <div class="service-icon mb-6">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 hologram-text">Alterations</h3>
+                    <p class="text-gray-400 mb-6">Expert alterations to ensure your existing garments fit perfectly</p>
+                    <div class="scanner-line"></div>
+                </div>
+                
+                <div class="holographic-card p-8 text-center">
+                    <div class="service-icon mb-6">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 hologram-text">Casual Wear</h3>
+                    <p class="text-gray-400 mb-6">Custom casual clothing that combines comfort with sophisticated style</p>
+                    <div class="scanner-line"></div>
+                </div>
+                
+                <div class="holographic-card p-8 text-center">
+                    <div class="service-icon mb-6">
+                        <i class="fas fa-ring"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 hologram-text">Wedding Attire</h3>
+                    <p class="text-gray-400 mb-6">Exquisite wedding garments for your special day</p>
+                    <div class="scanner-line"></div>
+                </div>
+                
+                <div class="holographic-card p-8 text-center">
+                    <div class="service-icon mb-6">
+                        <i class="fas fa-bow-tie"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 hologram-text">Formal Wear</h3>
+                    <p class="text-gray-400 mb-6">Elegant formal attire for special occasions and events</p>
+                    <div class="scanner-line"></div>
+                </div>
+                
+                <div class="holographic-card p-8 text-center">
+                    <div class="service-icon mb-6">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 hologram-text">Restoration</h3>
+                    <p class="text-gray-400 mb-6">Restore and revitalize your cherished garments</p>
+                    <div class="scanner-line"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-playfair font-bold mb-6 gradient-text">
+                    Our Process
+                </h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    A seamless journey from concept to completion
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="process-step text-center">
+                    <div class="step-number">01</div>
+                    <h3 class="text-xl font-semibold mb-4 hologram-text">Consultation</h3>
+                    <p class="text-gray-400">Initial discussion of your vision, style preferences, and requirements</p>
+                </div>
+                
+                <div class="process-step text-center">
+                    <div class="step-number">02</div>
+                    <h3 class="text-xl font-semibold mb-4 hologram-text">Design</h3>
+                    <p class="text-gray-400">Creating detailed designs and selecting premium materials</p>
+                </div>
+                
+                <div class="process-step text-center">
+                    <div class="step-number">03</div>
+                    <h3 class="text-xl font-semibold mb-4 hologram-text">Fitting</h3>
+                    <p class="text-gray-400">Precise measurements and multiple fittings for perfect fit</p>
+                </div>
+                
+                <div class="process-step text-center">
+                    <div class="step-number">04</div>
+                    <h3 class="text-xl font-semibold mb-4 hologram-text">Delivery</h3>
+                    <p class="text-gray-400">Final quality check and delivery of your custom garment</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 glass-effect">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-playfair font-bold mb-6 gradient-text">
+                        About Our Craft
+                    </h2>
+                    <p class="text-xl text-gray-300 mb-6">
+                        With over 15 years of experience, we blend traditional tailoring techniques with modern precision technology to create garments that exceed expectations.
+                    </p>
+                    <p class="text-gray-400 mb-8">
+                        Our master tailors are trained in the finest European traditions, ensuring every stitch reflects our commitment to excellence. We use only the highest quality fabrics and materials, sourced from the world's premier textile houses.
+                    </p>
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <button class="btn-primary px-6 py-3 rounded-full font-semibold font-orbitron">
+                            Learn More
+                        </button>
+                        <button class="glass-effect px-6 py-3 rounded-full font-semibold font-orbitron hover:bg-white hover:bg-opacity-10 transition-all">
+                            Contact Us
+                        </button>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="holographic-card p-8">
+                        <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&h=400&fit=crop" 
+                             alt="Tailor at work" class="w-full h-80 object-cover rounded-lg">
+                        <div class="scanner-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-playfair font-bold mb-6 gradient-text">
+                    Client Testimonials
+                </h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    What our satisfied clients say about our work
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="testimonial-card p-8">
+                    <div class="flex items-center mb-6">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face" 
+                             alt="Client" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold hologram-text">Michael Johnson</h4>
+                            <p class="text-gray-400 text-sm">CEO, Tech Corp</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic">
+                        "Exceptional craftsmanship and attention to detail. My suits fit perfectly and look incredible. The futuristic approach to traditional tailoring is remarkable."
+                    </p>
+                </div>
+                
+                <div class="testimonial-card p-8">
+                    <div class="flex items-center mb-6">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616c95b6b2e?w=60&h=60&fit=crop&crop=face" 
+                             alt="Client" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold hologram-text">Sarah Williams</h4>
+                            <p class="text-gray-400 text-sm">Fashion Designer</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic">
+                        "The precision and quality of work is outstanding. They transformed my vision into reality with their innovative approach to custom tailoring."
+                    </p>
+                </div>
+                
+                <div class="testimonial-card p-8">
+                    <div class="flex items-center mb-6">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face" 
+                             alt="Client" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold hologram-text">David Chen</h4>
+                            <p class="text-gray-400 text-sm">Investment Banker</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic">
+                        "Professional service from start to finish. The attention to detail and quality of materials used is simply unmatched in the industry."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment Section -->
+    <section id="appointment" class="py-20 glass-effect">
+        <div class="container mx-auto px-6">
+            <div class="max-w-2xl mx-auto text-center">
+                <h2 class="text-4xl md:text-5xl font-playfair font-bold mb-6 gradient-text">
+                    Book Your Consultation
+                </h2>
+                <p class="text-xl text-gray-300 mb-8">
+                    Ready to experience the future of tailoring? Schedule your consultation today.
+                </p>
+                
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <input type="text" placeholder="Your Name" class="futuristic-input p-4 w-full">
+                        <input type="email" placeholder="Your Email" class="futuristic-input p-4 w-full">
+                    </div>
+                    <input type="tel" placeholder="Phone Number" class="futuristic-input p-4 w-full">
+                    <select class="futuristic-input p-4 w-full">
+                        <option>Select Service</option>
+                        <option>Custom Suits</option>
+                        <option>Alterations</option>
+                        <option>Wedding Attire</option>
+                        <option>Formal Wear</option>
+                        <option>Casual Wear</option>
+                    </select>
+                    <textarea placeholder="Tell us about your requirements" rows="4" class="futuristic-input p-4 w-full"></textarea>
+                    <button type="submit" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold font-orbitron w-full">
+                        Schedule Consultation
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <i class="fas fa-cut text-2xl gradient-text"></i>
+                        <span class="text-xl font-playfair font-bold hologram-text">Artisan Tailors</span>
+                    </div>
+                    <p class="text-gray-400">
+                        Where traditional craftsmanship meets futuristic precision.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4 hologram-text">Services</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">Custom Suits</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">Alterations</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">Wedding Attire</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">Formal Wear</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4 hologram-text">Contact</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><i class="fas fa-map-marker-alt mr-2"></i>123 Fashion Street, NYC</li>
+                        <li><i class="fas fa-phone mr-2"></i>+1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope mr-2"></i>info@artisantailors.com</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4 hologram-text">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors text-xl">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors text-xl">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors text-xl">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors text-xl">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Artisan Tailors. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Initialize GSAP
+        gsap.registerPlugin(ScrollTrigger, TextPlugin, MorphSVGPlugin);
+        
+        // Particle Background
+        function createParticles() {
+            const particleContainer = document.getElementById('particleBackground');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particleContainer.appendChild(particle);
+            }
+        }
+        
+        // Stats Counter Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stats-counter');
+            counters.forEach(counter => {
+                gsap.to(counter, {
+                    duration: 2,
+                    innerHTML: counter.dataset.target,
+                    ease: "power2.out",
+                    snap: { innerHTML: 1 },
+                    scrollTrigger: {
+                        trigger: counter,
+                        start: "top 80%",
+                        toggleActions: "play none none none"
+                    }
+                });
+            });
+        }
+        
+        // Floating Animation
+        function createFloatingAnimation() {
+            const floatingElements = document.querySelectorAll('.float-animation');
+            floatingElements.forEach((element, index) => {
+                gsap.to(element, {
+                    y: -20,
+                    duration: 2 + index * 0.5,
+                    ease: "power2.inOut",
+                    yoyo: true,
+                    repeat: -1
+                });
+            });
+        }
+        
+        // Scroll Animations
+        function setupScrollAnimations() {
+            // Gallery cards
+            gsap.utils.toArray('.gallery-card').forEach((card, index) => {
+                gsap.fromTo(card, {
+                    opacity: 0,
+                    y: 50,
+                    scale: 0.8
+                }, {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.6,
+                    delay: index * 0.1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 80%",
+                        toggleActions: "play none none none"
+                    }
+                });
+            });
+            
+            // Service cards
+            gsap.utils.toArray('.holographic-card').forEach((card, index) => {
+                gsap.fromTo(card, {
+                    opacity: 0,
+                    y: 30,
+                    rotationX: 15
+                }, {
+                    opacity: 1,
+                    y: 0,
+                    rotationX: 0,
+                    duration: 0.8,
+                    delay: index * 0.1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    }
+                });
+            });
+            
+            // Process steps
+            gsap.utils.toArray('.process-step').forEach((step, index) => {
+                gsap.fromTo(step, {
+                    opacity: 0,
+                    x: index % 2 === 0 ? -50 : 50,
+                    scale: 0.9
+                }, {
+                    opacity: 1,
+                    x: 0,
+                    scale: 1,
+                    duration: 0.7,
+                    delay: index * 0.15,
+                    ease: "back.out(1.7)",
+                    scrollTrigger: {
+                        trigger: step,
+                        start: "top 80%",
+                        toggleActions: "play none none none"
+                    }
+                });
+            });
+            
+            // Testimonials
+            gsap.utils.toArray('.testimonial-card').forEach((card, index) => {
+                gsap.fromTo(card, {
+                    opacity: 0,
+                    y: 40,
+                    rotationY: 15
+                }, {
+                    opacity: 1,
+                    y: 0,
+                    rotationY: 0,
+                    duration: 0.8,
+                    delay: index * 0.2,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    }
+                });
+            });
+        }
+        
+        // Smooth Scrolling
+        function setupSmoothScrolling() {
+            const links = document.querySelectorAll('nav a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = document.querySelector(link.getAttribute('href'));
+                    if (target) {
+                        gsap.to(window, {
+                            duration: 1,
+                            scrollTo: target,
+                            ease: "power2.inOut"
+                        });
+                    }
+                });
+            });
+        }
+        
+        // Form Interactions
+        function setupFormInteractions() {
+            const inputs = document.querySelectorAll('.futuristic-input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', () => {
+                    gsap.to(input, {
+                        scale: 1.02,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+                
+                input.addEventListener('blur', () => {
+                    gsap.to(input, {
+                        scale: 1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+            });
+        }
+        
+        // Button Hover Effects
+        function setupButtonEffects() {
+            const buttons = document.querySelectorAll('.btn-primary');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', () => {
+                    gsap.to(button, {
+                        scale: 1.05,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+                
+                button.addEventListener('mouseleave', () => {
+                    gsap.to(button, {
+                        scale: 1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+            });
+        }
+        
+// Navigation Active State
+        function setupNavigation() {
+            const navLinks = document.querySelectorAll('nav a[href^="#"]');
+            const sections = document.querySelectorAll('section[id]');
+            
+            // Update active nav link on scroll
+            ScrollTrigger.batch(sections, {
+                onEnter: (elements) => {
+                    const currentSection = elements[0];
+                    const currentId = currentSection.getAttribute('id');
+                    
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${currentId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                },
+                start: "top 60%",
+                end: "bottom 40%"
+            });
+        }
+        
+        // Mobile Menu Toggle
+        function setupMobileMenu() {
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            if (mobileMenuToggle && mobileMenu) {
+                mobileMenuToggle.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('active');
+                    gsap.to(mobileMenu, {
+                        opacity: mobileMenu.classList.contains('active') ? 1 : 0,
+                        x: mobileMenu.classList.contains('active') ? 0 : '100%',
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+            }
+        }
+        
+        // Parallax Effect
+        function setupParallax() {
+            const parallaxElements = document.querySelectorAll('.parallax-element');
+            parallaxElements.forEach(element => {
+                gsap.to(element, {
+                    yPercent: -50,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: element,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true
+                    }
+                });
+            });
+        }
+        
+        // Loading Animation
+        function setupLoadingAnimation() {
+            const loader = document.querySelector('.loader');
+            if (loader) {
+                gsap.to(loader, {
+                    opacity: 0,
+                    duration: 1,
+                    delay: 2,
+                    ease: "power2.out",
+                    onComplete: () => {
+                        loader.style.display = 'none';
+                    }
+                });
+            }
+        }
+        
+        // Form Submission Handler
+        function setupFormSubmission() {
+            const form = document.querySelector('#appointment form');
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    // Create success message animation
+                    const successMessage = document.createElement('div');
+                    successMessage.className = 'success-message';
+                    successMessage.innerHTML = `
+                        <div class="success-content">
+                            <i class="fas fa-check-circle"></i>
+                            <h3>Consultation Booked!</h3>
+                            <p>Thank you for your interest. We'll contact you within 24 hours.</p>
+                        </div>
+                    `;
+                    
+                    document.body.appendChild(successMessage);
+                    
+                    gsap.fromTo(successMessage, {
+                        opacity: 0,
+                        scale: 0.8,
+                        y: 50
+                    }, {
+                        opacity: 1,
+                        scale: 1,
+                        y: 0,
+                        duration: 0.5,
+                        ease: "back.out(1.7)"
+                    });
+                    
+                    // Remove success message after 3 seconds
+                    setTimeout(() => {
+                        gsap.to(successMessage, {
+                            opacity: 0,
+                            scale: 0.8,
+                            y: -50,
+                            duration: 0.3,
+                            ease: "power2.in",
+                            onComplete: () => {
+                                successMessage.remove();
+                            }
+                        });
+                    }, 3000);
+                    
+                    // Reset form
+                    form.reset();
+                });
+            }
+        }
+        
+        // Intersection Observer for animations
+        function setupIntersectionObserver() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe elements
+            const elementsToObserve = document.querySelectorAll('.gallery-card, .holographic-card, .process-step, .testimonial-card');
+            elementsToObserve.forEach(element => {
+                observer.observe(element);
+            });
+        }
+        
+        // Cursor Trail Effect
+        function setupCursorTrail() {
+            const cursorTrail = document.querySelector('.cursor-trail');
+            if (cursorTrail) {
+                let mouseX = 0;
+                let mouseY = 0;
+                let trailX = 0;
+                let trailY = 0;
+                
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                });
+                
+                function animateTrail() {
+                    trailX += (mouseX - trailX) * 0.1;
+                    trailY += (mouseY - trailY) * 0.1;
+                    
+                    cursorTrail.style.left = trailX + 'px';
+                    cursorTrail.style.top = trailY + 'px';
+                    
+                    requestAnimationFrame(animateTrail);
+                }
+                
+                animateTrail();
+            }
+        }
+        
+        // Initialize all functions
+        function init() {
+            createParticles();
+            animateCounters();
+            createFloatingAnimation();
+            setupScrollAnimations();
+            setupSmoothScrolling();
+            setupFormInteractions();
+            setupButtonEffects();
+            setupNavigation();
+            setupMobileMenu();
+            setupParallax();
+            setupLoadingAnimation();
+            setupFormSubmission();
+            setupIntersectionObserver();
+            setupCursorTrail();
+        }
+        
+        // Wait for DOM to load
+        document.addEventListener('DOMContentLoaded', init);
+        
+        // Page load optimization
+        window.addEventListener('load', () => {
+            // Refresh ScrollTrigger after all content is loaded
+            ScrollTrigger.refresh();
+        });
+        
+        // Handle resize events
+        window.addEventListener('resize', () => {
+            ScrollTrigger.refresh();
+        });
+        
+    </script>
+    
+    <!-- Additional CSS for animations and effects -->
+    <style>
+        /* Success Message Styles */
+        .success-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10000;
+            background: rgba(16, 20, 31, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(139, 92, 246, 0.2);
+        }
+        
+        .success-content i {
+            font-size: 3rem;
+            color: #10b981;
+            margin-bottom: 1rem;
+        }
+        
+        .success-content h3 {
+            color: #10b981;
+            margin-bottom: 0.5rem;
+        }
+        
+        .success-content p {
+            color: #d1d5db;
+        }
+        
+        /* Cursor Trail */
+        .cursor-trail {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.6) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+        }
+        
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100vh;
+            background: rgba(16, 20, 31, 0.95);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 2rem;
+            transform: translateX(100%);
+            opacity: 0;
+            z-index: 1000;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+            }
+        }
+        
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        
+        .loader::after {
+            content: '';
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(139, 92, 246, 0.3);
+            border-top: 3px solid #8b5cf6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Active Navigation Link */
+        nav a.active {
+            color: #8b5cf6;
+            text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+        
+        /* Animate In Classes */
+        .animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive Improvements */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.25rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.125rem;
+            }
+            
+            .stats-counter {
+                font-size: 2rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .btn-primary {
+                font-size: 0.875rem;
+                padding: 0.75rem 1.5rem;
+            }
+        }
+    </style>
+    
+    <!-- Cursor Trail Element -->
+    <div class="cursor-trail"></div>
+    
+    <!-- Loading Screen -->
+    <!-- <div class="loader"></div> -->
+    
+    <!-- Mobile Menu Toggle (add this to your header/nav) -->
+    <button class="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <nav>
+            <ul class="space-y-4">
+                <li><a href="#home" class="block py-2 text-lg hover:text-purple-400 transition-colors">Home</a></li>
+                <li><a href="#gallery" class="block py-2 text-lg hover:text-purple-400 transition-colors">Gallery</a></li>
+                <li><a href="#services" class="block py-2 text-lg hover:text-purple-400 transition-colors">Services</a></li>
+                <li><a href="#process" class="block py-2 text-lg hover:text-purple-400 transition-colors">Process</a></li>
+                <li><a href="#about" class="block py-2 text-lg hover:text-purple-400 transition-colors">About</a></li>
+                <li><a href="#appointment" class="block py-2 text-lg hover:text-purple-400 transition-colors">Appointment</a></li>
+            </ul>
+        </nav>
+    </div>
+
+</body>
+</html>
