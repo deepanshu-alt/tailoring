@@ -1,0 +1,1482 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madam Tailor - Premium Ladies Fashion & Mehndi Services</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'serif': ['Georgia', 'serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'rose': '#F43F5E',
+                        'pink': '#EC4899',
+                        'purple': '#8B5CF6',
+                        'gold': '#D4AF37',
+                        'navy': '#1E3A8A',
+                        'charcoal': '#2D3748',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #F43F5E 0%, #EC4899 50%, #8B5CF6 100%);
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .floating-icon {
+            position: absolute;
+            animation: floatIcon 8s ease-in-out infinite;
+            opacity: 0.7;
+        }
+        
+        @keyframes floatIcon {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.7;
+            }
+            50% { 
+                transform: translateY(-30px) rotate(180deg);
+                opacity: 1;
+            }
+        }
+        
+        .scissor-icon {
+            animation: scissor-cut 3s ease-in-out infinite;
+        }
+        
+        @keyframes scissor-cut {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(45deg); }
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .needle-thread {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .needle-thread::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(244, 63, 94, 0.4), transparent);
+            animation: thread-shine 3s infinite;
+        }
+        
+        @keyframes thread-shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .form-input {
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .image-overlay {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .image-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(244, 63, 94, 0.3), rgba(139, 92, 246, 0.3));
+            z-index: 1;
+            transition: opacity 0.3s ease;
+        }
+        
+        .image-overlay:hover::before {
+            opacity: 0.7;
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(135deg, #ffffff 0%, #fdf2f8 100%);
+            border: 1px solid rgba(244, 63, 94, 0.2);
+        }
+        
+        .process-step {
+            position: relative;
+        }
+        
+        .process-step::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -25px;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, #F43F5E, transparent);
+            z-index: 1;
+        }
+        
+        .process-step:last-child::before {
+            display: none;
+        }
+        
+        .stats-counter {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #F43F5E;
+        }
+        
+        .team-card {
+            transition: all 0.3s ease;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .mehndi-design-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .mehndi-design-card:hover {
+            transform: scale(1.05);
+        }
+
+        .mehndi-design-card.selected {
+            border: 3px solid #F43F5E;
+            box-shadow: 0 0 20px rgba(244, 63, 94, 0.3);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .service-tab {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .service-tab.active {
+            background: #F43F5E;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .floating-icon {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Floating Icons -->
+    <div class="fixed inset-0 pointer-events-none z-40">
+        <div class="floating-icon top-20 left-10 text-rose text-2xl" style="animation-delay: 0s;">✂️</div>
+        <div class="floating-icon top-40 right-20 text-pink text-xl" style="animation-delay: -2s;">📏</div>
+        <div class="floating-icon bottom-40 left-20 text-purple text-lg" style="animation-delay: -4s;">🧵</div>
+        <div class="floating-icon top-60 left-1/2 text-rose text-xl" style="animation-delay: -6s;">📐</div>
+        <div class="floating-icon bottom-20 right-10 text-pink text-lg" style="animation-delay: -8s;">🪡</div>
+        <div class="floating-icon top-80 right-1/3 text-purple text-xl" style="animation-delay: -10s;">👗</div>
+        <div class="floating-icon bottom-60 left-1/3 text-rose text-lg" style="animation-delay: -12s;">🌸</div>
+        <div class="floating-icon top-32 right-10 text-pink text-lg" style="animation-delay: -14s;">💐</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-effect">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold text-white">
+                        <span class="text-gold">✂</span> Madam Tailor
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-white hover:text-gold transition-colors">Home</a>
+                    <a href="#services" class="text-white hover:text-gold transition-colors">Services</a>
+                    <a href="#gallery" class="text-white hover:text-gold transition-colors">Gallery</a>
+                    <a href="#mehndi" class="text-white hover:text-gold transition-colors">Mehndi</a>
+                    <a href="#process" class="text-white hover:text-gold transition-colors">Process</a>
+                    <a href="#team" class="text-white hover:text-gold transition-colors">Team</a>
+                    <a href="#testimonials" class="text-white hover:text-gold transition-colors">Reviews</a>
+                    <a href="#about" class="text-white hover:text-gold transition-colors">About</a>
+                    <a href="#appointment" class="text-white hover:text-gold transition-colors">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen hero-gradient flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-20 left-20 w-40 h-40 bg-white rounded-full floating"></div>
+            <div class="absolute bottom-20 right-20 w-60 h-60 bg-gold rounded-full floating" style="animation-delay: -2s;"></div>
+            <div class="absolute top-1/2 left-1/4 w-32 h-32 bg-white rounded-full floating" style="animation-delay: -4s;"></div>
+        </div>
+        
+        <div class="text-center text-white z-10 max-w-4xl mx-auto px-4">
+            <div class="hero-icon mb-8">
+                <svg class="w-24 h-24 mx-auto text-gold scissor-icon" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M9.64 7.64c.23-.5.36-1.05.36-1.64 0-2.21-1.79-4-4-4S2 3.79 2 6s1.79 4 4 4c.59 0 1.14-.13 1.64-.36L10 12l-2.36 2.36C7.14 14.13 6.59 14 6 14c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4c0-.59-.13-1.14-.36-1.64L12 14l7 7h3v-1L9.64 7.64zM6 8c-1.1 0-2-.89-2-2s.9-2 2-2 2 .89 2 2-.9 2-2 2zm0 12c-1.1 0-2-.89-2-2s.9-2 2-2 2 .89 2 2-.9 2-2 2zm6-7.5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5zM19 3l-6 6 2 2 7-7V3z"/>
+                </svg>
+            </div>
+            <h1 class="text-6xl md:text-8xl font-serif font-bold mb-6 hero-title">
+                Crafting <span class="text-gold">Elegance</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 opacity-90 hero-subtitle">
+                Premium Ladies Fashion Tailoring & Beautiful Mehndi Designs
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+               <a href="#appointment"> <button class="bg-gold hover:bg-yellow-600 text-rose px-8 py-4 rounded-lg text-lg font-semibold transition-all transform hover:scale-105 hover:shadow-lg">
+                    Book Appointment
+                </button></a>
+                <a href="#gallery"> <button class="border-2 border-gold text-gold hover:bg-gold hover:text-rose px-8 py-4 rounded-lg text-lg font-semibold transition-all transform hover:scale-105">
+                    View Gallery
+                </button></a> 
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-20 bg-rose text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+                <div class="stats-item">
+                    <div class="stats-counter text-gold">25+</div>
+                    <p class="text-lg">Years Experience</p>
+                </div>
+                <div class="stats-item">
+                    <div class="stats-counter text-gold">8000+</div>
+                    <p class="text-lg">Happy Clients</p>
+                </div>
+                <div class="stats-item">
+                    <div class="stats-counter text-gold">20000+</div>
+                    <p class="text-lg">Garments Crafted</p>
+                </div>
+                <div class="stats-item">
+                    <div class="stats-counter text-gold">99%</div>
+                    <p class="text-lg">Client Satisfaction</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif font-bold text-charcoal mb-4">Our Services</h2>
+                <div class="w-24 h-1 bg-rose mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    From elegant traditional wear to modern fashion and beautiful mehndi designs for every occasion.
+                </p>
+            </div>
+
+            <!-- Service Tabs -->
+            <div class="flex flex-wrap justify-center mb-12">
+                <button class="service-tab active bg-rose text-white px-6 py-3 rounded-l-lg font-semibold" data-tab="tailoring">
+                    Ladies Tailoring
+                </button>
+                <button class="service-tab bg-gray-200 text-gray-700 px-6 py-3 rounded-r-lg font-semibold" data-tab="mehndi">
+                    Mehndi Services
+                </button>
+            </div>
+
+            <!-- Tailoring Services Tab -->
+            <div id="tailoring" class="tab-content active">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="service-card bg-gray-50 p-8 rounded-lg text-center hover:shadow-xl transition-all transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-rose rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-2xl">👗</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-charcoal mb-4">Custom Suits</h3>
+                        <p class="text-gray-600">Perfectly tailored suits for professional and formal occasions.</p>
+                    </div>
+                    
+                    <div class="service-card bg-gray-50 p-8 rounded-lg text-center hover:shadow-xl transition-all transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-pink rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-2xl">🥻</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-charcoal mb-4">Traditional Wear</h3>
+                        <p class="text-gray-600">Sarees, lehengas, salwar kameez with perfect fitting and finishing.</p>
+                    </div>
+                    
+                    <div class="service-card bg-gray-50 p-8 rounded-lg text-center hover:shadow-xl transition-all transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-purple rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-2xl">👚</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-charcoal mb-4">Western Wear</h3>
+                        <p class="text-gray-600">Dresses, tops, skirts, and modern casual wear tailoring.</p>
+                    </div>
+
+                    <div class="service-card bg-gray-50 p-8 rounded-lg text-center hover:shadow-xl transition-all transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-rose rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-2xl">💒</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-charcoal mb-4">Bridal Wear</h3>
+                        <p class="text-gray-600">Exquisite bridal outfits with intricate detailing and embellishments.</p>
+                    </div>
+
+                    <div class="service-card bg-gray-50 p-8 rounded-lg text-center hover:shadow-xl transition-all transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-pink rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-2xl">✂️</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-charcoal mb-4">Alterations</h3>
+                        <p class="text-gray-600">Expert alterations to ensure perfect fit for existing garments.</p>
+                    </div>
+
+                    <div class="service-card bg-gray-50 p-8 rounded-lg text-center hover:shadow-xl transition-all transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-purple rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-2xl">🎭</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-charcoal mb-4">Party Wear</h3>
+                        <p class="text-gray-600">Stunning party outfits for special occasions and celebrations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mehndi Services Tab -->
+            <div id="mehndi" class="tab-content">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="service-card bg-gray-50 p-8 rounded-lg text-center hover:shadow-xl transition-all transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-rose rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-2xl">🤲</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-charcoal mb-4">Bridal Mehndi</h3>
+                        <p class="text-gray-600">Intricate bridal mehndi designs for your special day.</p>
+                    </div>
+                    
+                    <div class="service-card bg-gray-50 p-8 rounded-lg text-center hover:shadow-xl transition-all transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-pink rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-2xl">🎉</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-charcoal mb-4">Party Mehndi</h3>
+                        <p class="text-gray-600">Beautiful designs for festivals, parties, and celebrations.</p>
+                    </div>
+                    
+                    <div class="service-card bg-gray-50 p-8 rounded-lg text-center hover:shadow-xl transition-all transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-purple rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-2xl">🌙</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-charcoal mb-4">Arabic Mehndi</h3>
+                        <p class="text-gray-600">Elegant Arabic style mehndi with bold patterns and spacing.</p>
+                    </div>
+
+                    <div class="service-card bg-gray-50 p-8 rounded-lg text-center hover:shadow-xl transition-all transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-rose rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-2xl">🌺</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-charcoal mb-4">Traditional Mehndi</h3>
+                        <p class="text-gray-600">Classic Indian mehndi patterns with intricate detailing.</p>
+                    </div>
+
+                    <div class="service-card bg-gray-50 p-8 rounded-lg text-center hover:shadow-xl transition-all transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-pink rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-2xl">✨</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-charcoal mb-4">Modern Designs</h3>
+                        <p class="text-gray-600">Contemporary mehndi patterns for modern occasions.</p>
+                    </div>
+
+                    <div class="service-card bg-gray-50 p-8 rounded-lg text-center hover:shadow-xl transition-all transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-purple rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="text-2xl">🏠</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-charcoal mb-4">Home Service</h3>
+                        <p class="text-gray-600">Convenient home service for groups and special occasions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif font-bold text-charcoal mb-4">Our Portfolio</h2>
+                <div class="w-24 h-1 bg-rose mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Explore our collection of beautiful garments and stunning mehndi work.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="gallery-item image-overlay rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1583391733956-6c78276477e1?w=400&h=500&fit=crop" alt="Bridal Lehenga" class="w-full h-64 object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6 z-10">
+                        <h3 class="text-white font-semibold text-lg">Bridal Lehenga</h3>
+                        <p class="text-gray-300 text-sm">Heavy embroidered silk with gold work</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item image-overlay rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400&h=500&fit=crop" alt="Designer Saree" class="w-full h-64 object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6 z-10">
+                        <h3 class="text-white font-semibold text-lg">Designer Saree</h3>
+                        <p class="text-gray-300 text-sm">Silk saree with custom blouse design</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item image-overlay rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=500&fit=crop" alt="Party Dress" class="w-full h-64 object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6 z-10">
+                        <h3 class="text-white font-semibold text-lg">Party Dress</h3>
+                        <p class="text-gray-300 text-sm">Contemporary evening wear design</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item image-overlay rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1583391733-c0c39c4b63b6?w=400&h=500&fit=crop" alt="Salwar Kameez" class="w-full h-64 object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6 z-10">
+                        <h3 class="text-white font-semibold text-lg">Salwar Kameez</h3>
+                        <p class="text-gray-300 text-sm">Traditional wear with modern cuts</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item image-overlay rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1594736797933-d0201ba2fe65?w=400&h=500&fit=crop" alt="Professional Suit" class="w-full h-64 object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6 z-10">
+                        <h3 class="text-white font-semibold text-lg">Professional Suit</h3>
+                        <p class="text-gray-300 text-sm">Corporate wear with perfect tailoring</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item image-overlay rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400&h=500&fit=crop" alt="Indo-Western" class="w-full h-64 object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6 z-10">
+                        <h3 class="text-white font-semibold text-lg">Indo-Western</h3>
+                        <p class="text-gray-300 text-sm">Fusion wear for modern occasions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mehndi Designs Section -->
+    <section id="mehndi" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif font-bold text-charcoal mb-4">Mehndi Design Gallery</h2>
+                <div class="w-24 h-1 bg-rose mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Choose from our extensive collection of beautiful mehndi designs or request custom patterns.
+                </p>
+            </div>
+
+            <!-- Mehndi Design Categories -->
+            <div class="flex flex-wrap justify-center mb-12 gap-4">
+                <button class="mehndi-category active bg-rose text-white px-6 py-3 rounded-lg font-semibold" data-category="all">
+                    All Designs
+                </button>
+                <button class="mehndi-category bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold" data-category="bridal">
+                    Bridal
+                </button>
+                <button class="mehndi-category bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold" data-category="arabic">
+                    Arabic
+                </button>
+                <button class="mehndi-category bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold" data-category="traditional">
+                    Traditional
+                </button>
+                <button class="mehndi-category bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold" data-category="modern">
+                    Modern
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="mehndi-gallery">
+                <!-- Bridal Designs -->
+                <div class="mehndi-design-card bridal bg-white rounded-lg shadow-lg overflow-hidden" data-design="bridal-1">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=300&fit=crop" alt="Bridal Mehndi 1" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h4 class="font-semibold text-charcoal">Intricate Bridal</h4>
+                        <p class="text-sm text-gray-600">Full hand coverage</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-rose font-semibold">₹2500</span>
+                            <span class="text-xs bg-rose text-white px-2 py-1 rounded">Bridal</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mehndi-design-card bridal bg-white rounded-lg shadow-lg overflow-hidden" data-design="bridal-2">
+                    <img src="https://images.unsplash.com/photo-1583391733-1d3e0e6b5a47?w=300&h=300&fit=crop" alt="Bridal Mehndi 2" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h4 class="font-semibold text-charcoal">Royal Bridal</h4>
+                        <p class="text-sm text-gray-600">Both hands + feet</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-rose font-semibold">₹4000</span>
+                            <span class="text-xs bg-rose text-white px-2 py-1 rounded">Bridal</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Arabic Designs -->
+                <div class="mehndi-design-card arabic bg-white rounded-lg shadow-lg overflow-hidden" data-design="arabic-1">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=300&fit=crop" alt="Arabic Mehndi 1" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h4 class="font-semibold text-charcoal">Bold Arabic</h4>
+                        <p class="text-sm text-gray-600">Single hand design</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-rose font-semibold">₹800</span>
+                            <span class="text-xs bg-pink text-white px-2 py-1 rounded">Arabic</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mehndi-design-card arabic bg-white rounded-lg shadow-lg overflow-hidden" data-design="arabic-2">
+                    <img src="https://images.unsplash.com/photo-1583391733-c0c39c4b63b6?w=300&h=300&fit=crop" alt="Arabic Mehndi 2" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h4 class="font-semibold text-charcoal">Floral Arabic</h4>
+                        <p class="text-sm text-gray-600">Both hands</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-rose font-semibold">₹1200</span>
+                            <span class="text-xs bg-pink text-white px-2 py-1 rounded">Arabic</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Traditional Designs -->
+                <div class="mehndi-design-card traditional bg-white rounded-lg shadow-lg overflow-hidden" data-design="traditional-1">
+                    <img src="https://images.unsplash.com/photo-1594736797933-d0201ba2fe65?w=300&h=300&fit=crop" alt="Traditional Mehndi 1" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h4 class="font-semibold text-charcoal">Classic Indian</h4>
+                        <p class="text-sm text-gray-600">Traditional patterns</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-rose font-semibold">₹1000</span>
+                            <span class="text-xs bg-purple text-white px-2 py-1 rounded">Traditional</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mehndi-design-card traditional bg-white rounded-lg shadow-lg overflow-hidden" data-design="traditional-2">
+                    <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=300&h=300&fit=crop" alt="Traditional Mehndi 2" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h4 class="font-semibold text-charcoal">Mandala Design</h4>
+                        <p class="text-sm text-gray-600">Circular patterns</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-rose font-semibold">₹900</span>
+                            <span class="text-xs bg-purple text-white px-2 py-1 rounded">Traditional</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modern Designs -->
+                <div class="mehndi-design-card modern bg-white rounded-lg shadow-lg overflow-hidden" data-design="modern-1">
+                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=300&h=300&fit=crop" alt="Modern Mehndi 1" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h4 class="font-semibold text-charcoal">Minimalist</h4>
+                        <p class="text-sm text-gray-600">Simple elegant lines</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-rose font-semibold">₹600</span>
+                            <span class="text-xs bg-gray-500 text-white px-2 py-1 rounded">Modern</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mehndi-design-card modern bg-white rounded-lg shadow-lg overflow-hidden" data-design="modern-2">
+                    <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=300&h=300&fit=crop" alt="Modern Mehndi 2" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h4 class="font-semibold text-charcoal">Geometric</h4>
+                        <p class="text-sm text-gray-600">Contemporary patterns</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-rose font-semibold">₹750</span>
+                            <span class="text-xs bg-gray-500 text-white px-2 py-1 rounded">Modern</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <button id="custom-design-btn" class="bg-rose hover:bg-pink-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all transform hover:scale-105">
+                    Request Custom Design
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif font-bold text-charcoal mb-4">Our Process</h2>
+                <div class="w-24 h-1 bg-rose mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    From consultation to delivery, we ensure every step delivers perfection.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="process-step text-center">
+                    <div class="w-20 h-20 bg-rose rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-white text-2xl font-bold">1</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-charcoal mb-4">Consultation</h3>
+                    <p class="text-gray-600">Discuss your requirements, style preferences, and occasion needs.</p>
+                </div>
+                
+                <div class="process-step text-center">
+                    <div class="w-20 h-20 bg-pink rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-white text-2xl font-bold">2</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-charcoal mb-4">Design & Measure</h3>
+                    <p class="text-gray-600">Create design sketches and take precise measurements for perfect fit.</p>
+                </div>
+                
+                <div class="process-step text-center">
+                    <div class="w-20 h-20 bg-purple rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-white text-2xl font-bold">3</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-charcoal mb-4">Crafting</h3>
+                    <p class="text-gray-600">Expert tailors and mehndi artists work with precision and care.</p>
+                </div>
+                
+                <div class="process-step text-center">
+                    <div class="w-20 h-20 bg-rose rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-white text-2xl font-bold">4</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-charcoal mb-4">Final Touch</h3>
+                    <p class="text-gray-600">Final fitting, adjustments, and quality check before delivery.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif font-bold text-charcoal mb-4">Meet Our Expert Team</h2>
+                <div class="w-24 h-1 bg-rose mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Our skilled artisans bring years of experience in fashion design and mehndi artistry.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="team-card bg-white rounded-lg shadow-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop" alt="Head Designer" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-charcoal mb-2">Priya Sharma</h3>
+                        <p class="text-rose font-medium mb-2">Head Designer & Master Tailor</p>
+                        <p class="text-gray-600 text-sm">25+ years of experience in ladies fashion and traditional wear design.</p>
+                    </div>
+                </div>
+                
+                <div class="team-card bg-white rounded-lg shadow-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=400&h=400&fit=crop" alt="Mehndi Artist" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-charcoal mb-2">Meera Patel</h3>
+                        <p class="text-rose font-medium mb-2">Senior Mehndi Artist</p>
+                        <p class="text-gray-600 text-sm">Expert in bridal and traditional mehndi with artistic flair.</p>
+                    </div>
+                </div>
+                
+                <div class="team-card bg-white rounded-lg shadow-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop" alt="Fashion Consultant" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-charcoal mb-2">Kavya Singh</h3>
+                        <p class="text-rose font-medium mb-2">Fashion Consultant</p>
+                        <p class="text-gray-600 text-sm">Specialist in contemporary fashion and style advisory.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif font-bold text-charcoal mb-4">What Our Clients Say</h2>
+                <div class="w-24 h-1 bg-rose mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Hear from our satisfied customers about their experience with our services.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="testimonial-card p-8 rounded-lg shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b647?w=80&h=80&fit=crop" alt="Client 1" class="w-12 h-12 rounded-full object-cover">
+                        <div class="ml-4">
+                            <h4 class="font-semibold text-charcoal">Anjali Gupta</h4>
+                            <p class="text-sm text-gray-600">Bride</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <span class="text-rose text-xl">★★★★★</span>
+                    </div>
+                    <p class="text-gray-600 italic">"My bridal lehenga was absolutely perfect! The attention to detail and craftsmanship exceeded all my expectations. Highly recommended!"</p>
+                </div>
+                
+                <div class="testimonial-card p-8 rounded-lg shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop" alt="Client 2" class="w-12 h-12 rounded-full object-cover">
+                        <div class="ml-4">
+                            <h4 class="font-semibold text-charcoal">Riya Sharma</h4>
+                            <p class="text-sm text-gray-600">Working Professional</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <span class="text-rose text-xl">★★★★★</span>
+                    </div>
+                    <p class="text-gray-600 italic">"Their professional suits are amazing! Perfect fit and quality fabric. I get so many compliments on my outfits."</p>
+                </div>
+                
+                <div class="testimonial-card p-8 rounded-lg shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&h=80&fit=crop" alt="Client 3" class="w-12 h-12 rounded-full object-cover">
+                        <div class="ml-4">
+                            <h4 class="font-semibold text-charcoal">Pooja Mehta</h4>
+                            <p class="text-sm text-gray-600">Fashion Enthusiast</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <span class="text-rose text-xl">★★★★★</span>
+                    </div>
+                    <p class="text-gray-600 italic">"The mehndi work is absolutely stunning! Meera's artistry is incredible and the designs are so intricate and beautiful."</p>
+                </div>
+                
+                <div class="testimonial-card p-8 rounded-lg shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=80&h=80&fit=crop" alt="Client 4" class="w-12 h-12 rounded-full object-cover">
+                        <div class="ml-4">
+                            <h4 class="font-semibold text-charcoal">Neha Agarwal</h4>
+                            <p class="text-sm text-gray-600">Event Planner</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <span class="text-rose text-xl">★★★★★</span>
+                    </div>
+                    <p class="text-gray-600 italic">"Excellent service and beautiful designs. They understood exactly what I wanted and delivered beyond expectations."</p>
+                </div>
+                
+                <div class="testimonial-card p-8 rounded-lg shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=80&h=80&fit=crop" alt="Client 5" class="w-12 h-12 rounded-full object-cover">
+                        <div class="ml-4">
+                            <h4 class="font-semibold text-charcoal">Sunita Jain</h4>
+                            <p class="text-sm text-gray-600">Homemaker</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <span class="text-rose text-xl">★★★★★</span>
+                    </div>
+                    <p class="text-gray-600 italic">"Amazing alterations service! They made my old sarees fit perfectly again. Very professional and timely service."</p>
+                </div>
+                
+                <div class="testimonial-card p-8 rounded-lg shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&h=80&fit=crop" alt="Client 6" class="w-12 h-12 rounded-full object-cover">
+                        <div class="ml-4">
+                            <h4 class="font-semibold text-charcoal">Kavitha Reddy</h4>
+                            <p class="text-sm text-gray-600">Teacher</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <span class="text-rose text-xl">★★★★★</span>
+                    </div>
+                    <p class="text-gray-600 italic">"The team is so talented and friendly. Both my daughter's party dress and my traditional wear turned out beautifully!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <h2 class="text-4xl font-serif font-bold text-charcoal mb-4">About Madam Tailor</h2>
+                    <div class="w-24 h-1 bg-rose mb-6"></div>
+                    <p class="text-lg text-gray-600 leading-relaxed">
+                        For over 25 years, Madam Tailor has been the trusted name for exquisite ladies fashion and beautiful mehndi artistry. We specialize in creating stunning garments that celebrate the feminine spirit and enhance natural beauty.
+                    </p>
+                    <p class="text-lg text-gray-600 leading-relaxed">
+                        Our team combines traditional craftsmanship with contemporary design sensibilities to create pieces that are both timeless and modern. From bridal wear to everyday fashion, from intricate mehndi to simple elegance, we cater to every woman's style needs.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 mt-8">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-rose mb-2">25+</div>
+                            <p class="text-sm text-gray-600">Years of Excellence</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-rose mb-2">100%</div>
+                            <p class="text-sm text-gray-600">Handcrafted Quality</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=600&fit=crop" alt="Designer at work" class="rounded-lg shadow-xl">
+                    <div class="absolute inset-0 bg-gradient-to-t from-rose/20 to-transparent rounded-lg"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment Section -->
+    <section id="appointment" class="py-20 bg-rose">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-serif font-bold text-white mb-4">Book Your Appointment</h2>
+                <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
+                <p class="text-lg text-gray-100 max-w-2xl mx-auto">
+                    Ready to experience the finest in ladies fashion and mehndi artistry? Schedule your consultation today.
+                </p>
+            </div>
+            
+            <form class="bg-white rounded-lg shadow-xl p-8 space-y-6" id="appointment-form">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
+                        <input type="text" required class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose focus:border-transparent" placeholder="Enter your first name">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
+                        <input type="text" required class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose focus:border-transparent" placeholder="Enter your last name">
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                        <input type="email" required class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose focus:border-transparent" placeholder="your@email.com">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Phone *</label>
+                        <input type="tel" required class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose focus:border-transparent" placeholder="+91 98765 43210">
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Service Type *</label>
+                        <select required class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose focus:border-transparent" id="service-type">
+                            <option value="">Select Service</option>
+                            <option value="custom-suit">Custom Suit</option>
+                            <option value="traditional-wear">Traditional Wear</option>
+                            <option value="western-wear">Western Wear</option>
+                            <option value="bridal-wear">Bridal Wear</option>
+                            <option value="alterations">Alterations</option>
+                            <option value="party-wear">Party Wear</option>
+                            <option value="bridal-mehndi">Bridal Mehndi</option>
+                            <option value="party-mehndi">Party Mehndi</option>
+                            <option value="arabic-mehndi">Arabic Mehndi</option>
+                            <option value="traditional-mehndi">Traditional Mehndi</option>
+                            <option value="modern-mehndi">Modern Mehndi</option>
+                            <option value="consultation">Consultation</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Preferred Date *</label>
+                        <input type="date" required class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose focus:border-transparent">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Preferred Time *</label>
+                        <select required class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose focus:border-transparent">
+                            <option value="">Select Time</option>
+                            <option value="9:00 AM">9:00 AM</option>
+                            <option value="10:00 AM">10:00 AM</option>
+                            <option value="11:00 AM">11:00 AM</option>
+                            <option value="12:00 PM">12:00 PM</option>
+                            <option value="1:00 PM">1:00 PM</option>
+                            <option value="2:00 PM">2:00 PM</option>
+                            <option value="3:00 PM">3:00 PM</option>
+                            <option value="4:00 PM">4:00 PM</option>
+                            <option value="5:00 PM">5:00 PM</option>
+                            <option value="6:00 PM">6:00 PM</option>
+                            <option value="7:00 PM">7:00 PM</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Budget Range</label>
+                        <select class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose focus:border-transparent">
+                            <option value="">Select Budget</option>
+                            <option value="under-5000">Under ₹5,000</option>
+                            <option value="5000-10000">₹5,000 - ₹10,000</option>
+                            <option value="10000-25000">₹10,000 - ₹25,000</option>
+                            <option value="25000-50000">₹25,000 - ₹50,000</option>
+                            <option value="above-50000">Above ₹50,000</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Special Requirements</label>
+                    <textarea rows="4" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose focus:border-transparent" placeholder="Please describe your requirements, occasion, color preferences, or any special requests..."></textarea>
+                </div>
+                
+                <div class="text-center">
+                    <button type="submit" class="bg-rose hover:bg-pink-600 text-white px-12 py-4 rounded-lg text-lg font-semibold transition-all transform hover:scale-105 hover:shadow-lg">
+                        Schedule Appointment
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif font-bold text-charcoal mb-4">Get In Touch</h2>
+                <div class="w-24 h-1 bg-rose mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Visit our boutique or reach out to us for consultations and inquiries.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-rose rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-white text-2xl">📍</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-charcoal mb-4">Visit Us</h3>
+                    <p class="text-gray-600">
+                        123 Fashion Street<br>
+                        Sector 12, Faridabad<br>
+                        Haryana 121007, India
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-pink rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-white text-2xl">📞</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-charcoal mb-4">Call Us</h3>
+                    <p class="text-gray-600">
+                        +91 98765 43210<br>
+                        +91 87654 32109<br>
+                        Mon-Sun: 9 AM - 8 PM
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-purple rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-white text-2xl">✉️</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-charcoal mb-4">Email Us</h3>
+                    <p class="text-gray-600">
+                        info@madamtailor.com<br>
+                        bookings@madamtailor.com<br>
+                        Quick Response Guaranteed
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-charcoal text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center mb-6">
+                        <span class="text-gold text-2xl mr-2">✂</span>
+                        <h3 class="text-2xl font-bold">Madam Tailor</h3>
+                    </div>
+                    <p class="text-gray-300 mb-6 max-w-md">
+                        Crafting elegance for over 25 years. Your trusted partner for premium ladies fashion and beautiful mehndi artistry.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-rose rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors">
+                            <span class="text-white">f</span>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-rose rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors">
+                            <span class="text-white">📷</span>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-rose rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors">
+                            <span class="text-white">📱</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#services" class="text-gray-300 hover:text-gold transition-colors">Our Services</a></li>
+                        <li><a href="#gallery" class="text-gray-300 hover:text-gold transition-colors">Portfolio</a></li>
+                        <li><a href="#mehndi" class="text-gray-300 hover:text-gold transition-colors">Mehndi Designs</a></li>
+                        <li><a href="#team" class="text-gray-300 hover:text-gold transition-colors">Our Team</a></li>
+                        <li><a href="#about" class="text-gray-300 hover:text-gold transition-colors">About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">Services</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-300 hover:text-gold transition-colors">Bridal Wear</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-gold transition-colors">Custom Suits</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-gold transition-colors">Traditional Wear</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-gold transition-colors">Mehndi Art</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-gold transition-colors">Alterations</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center">
+                <p class="text-gray-300">
+                    &copy; 2025 Madam Tailor. All rights reserved. | 
+                    <a href="#" class="text-gold hover:text-yellow-300">Privacy Policy</a> | 
+                    <a href="#" class="text-gold hover:text-yellow-300">Terms of Service</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- Design Preview Modal -->
+    <div id="design-modal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-charcoal">Design Details</h3>
+                <button id="close-modal" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            <div id="modal-content-body">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Design Request Modal -->
+    <div id="custom-modal" class="modal">
+        <div class="modal-content max-w-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-charcoal">Custom Design Request</h3>
+                <button id="close-custom-modal" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            <form class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Name *</label>
+                        <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Phone *</label>
+                        <input type="tel" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose focus:border-transparent">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Design Type *</label>
+                    <select required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose focus:border-transparent">
+                        <option value="">Select Design Type</option>
+                        <option value="bridal">Bridal Mehndi</option>
+                        <option value="arabic">Arabic Style</option>
+                        <option value="traditional">Traditional Indian</option>
+                        <option value="modern">Modern/Contemporary</option>
+                        <option value="fusion">Fusion Design</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Occasion *</label>
+                    <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose focus:border-transparent" placeholder="Wedding, Festival, Party, etc.">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Design Description *</label>
+                    <textarea rows="4" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose focus:border-transparent" placeholder="Describe your desired design, patterns, coverage area, and any specific elements you want..."></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="bg-rose hover:bg-pink-600 text-white px-8 py-3 rounded-lg font-semibold transition-all transform hover:scale-105">
+                        Submit Request
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div id="success-message" class="fixed top-4 right-4 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 z-50">
+        <div class="flex items-center">
+            <span class="mr-2">✓</span>
+            <span>Message sent successfully!</span>
+        </div>
+    </div>
+
+    <script>
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero animations
+        gsap.timeline()
+            .from('.hero-title', { duration: 1.5, y: 100, opacity: 0, ease: 'power3.out' })
+            .from('.hero-subtitle', { duration: 1.2, y: 50, opacity: 0, ease: 'power3.out' }, '-=0.8')
+            .from('.hero-icon', { duration: 1, scale: 0, rotation: 180, ease: 'back.out(1.7)' }, '-=1');
+
+        // Stats counter animation
+        gsap.utils.toArray('.stats-counter').forEach(counter => {
+            const target = counter.textContent;
+            const numTarget = parseInt(target.replace(/[^\d]/g, ''));
+            
+            gsap.fromTo(counter, 
+                { textContent: 0 },
+                {
+                    textContent: numTarget,
+                    duration: 2,
+                    ease: 'power2.out',
+                    snap: { textContent: 1 },
+                    scrollTrigger: {
+                        trigger: counter,
+                        start: 'top 80%'
+                    },
+                    onUpdate: function() {
+                        counter.textContent = Math.ceil(counter.textContent) + target.replace(/\d/g, '');
+                    }
+                }
+            );
+        });
+
+        // Service cards animation
+        gsap.utils.toArray('.service-card').forEach((card, index) => {
+            gsap.from(card, {
+                y: 100,
+                opacity: 0,
+                duration: 1,
+                delay: index * 0.1,
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%'
+                }
+            });
+        });
+
+        // Gallery items animation
+        gsap.utils.toArray('.gallery-item').forEach((item, index) => {
+            gsap.from(item, {
+                scale: 0.8,
+                opacity: 0,
+                duration: 1,
+                delay: index * 0.1,
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top 80%'
+                }
+            });
+        });
+
+        // Team cards animation
+        gsap.utils.toArray('.team-card').forEach((card, index) => {
+            gsap.from(card, {
+                y: 100,
+                opacity: 0,
+                rotation: 5,
+                duration: 1,
+                delay: index * 0.2,
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%'
+                }
+            });
+        });
+
+        // Process steps animation
+        gsap.utils.toArray('.process-step').forEach((step, index) => {
+            gsap.from(step, {
+                x: index % 2 === 0 ? -100 : 100,
+                opacity: 0,
+                duration: 1,
+                delay: index * 0.2,
+                scrollTrigger: {
+                    trigger: step,
+                    start: 'top 80%'
+                }
+            });
+        });
+
+        // Service tabs functionality
+        document.querySelectorAll('.service-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs and contents
+                document.querySelectorAll('.service-tab').forEach(t => {
+                    t.classList.remove('active', 'bg-rose', 'text-white');
+                    t.classList.add('bg-gray-200', 'text-gray-700');
+                });
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+
+                // Add active class to clicked tab
+                this.classList.add('active', 'bg-rose', 'text-white');
+                this.classList.remove('bg-gray-200', 'text-gray-700');
+
+                // Show corresponding content
+                const targetTab = this.getAttribute('data-tab');
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+
+        // Mehndi category filters
+        document.querySelectorAll('.mehndi-category').forEach(category => {
+            category.addEventListener('click', function() {
+                // Remove active class from all categories
+                document.querySelectorAll('.mehndi-category').forEach(cat => {
+                    cat.classList.remove('active', 'bg-rose', 'text-white');
+                    cat.classList.add('bg-gray-200', 'text-gray-700');
+                });
+
+                // Add active class to clicked category
+                this.classList.add('active', 'bg-rose', 'text-white');
+                this.classList.remove('bg-gray-200', 'text-gray-700');
+
+                const selectedCategory = this.getAttribute('data-category');
+                const designs = document.querySelectorAll('.mehndi-design-card');
+
+                designs.forEach(design => {
+                    if (selectedCategory === 'all' || design.classList.contains(selectedCategory)) {
+                        design.style.display = 'block';
+                        gsap.from(design, { scale: 0.8, opacity: 0, duration: 0.3 });
+                    } else {
+                        design.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Mehndi design card interactions
+        document.querySelectorAll('.mehndi-design-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const designId = this.getAttribute('data-design');
+                const designName = this.querySelector('h4').textContent;
+                const designPrice = this.querySelector('.text-rose').textContent;
+                const designCategory = this.querySelector('.text-xs').textContent;
+                const designImage = this.querySelector('img').src;
+                
+                document.getElementById('modal-content-body').innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <img src="${designImage}" alt="${designName}" class="w-full rounded-lg">
+                        </div>
+                        <div>
+                            <h4 class="text-2xl font-bold text-charcoal mb-4">${designName}</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between">
+                                    <span class="font-medium">Category:</span>
+                                    <span class="text-rose">${designCategory}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="font-medium">Price:</span>
+                                    <span class="text-2xl font-bold text-rose">${designPrice}</span>
+                                </div>
+                                <div class="border-t pt-4">
+                                    <h5 class="font-medium mb-2">Includes:</h5>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>• Professional application</li>
+                                        <li>• High-quality henna</li>
+                                        <li>• Design consultation</li>
+                                        <li>• Aftercare instructions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-6">
+                                <button class="w-full bg-rose hover:bg-pink-600 text-white py-3 rounded-lg font-semibold transition-all">
+                                    Book This Design
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('design-modal').classList.add('active');
+            });
+        });
+
+        // Modal functionality
+        document.getElementById('close-modal').addEventListener('click', function() {
+            document.getElementById('design-modal').classList.remove('active');
+        });
+
+        document.getElementById('custom-design-btn').addEventListener('click', function() {
+            document.getElementById('custom-modal').classList.add('active');
+        });
+
+        document.getElementById('close-custom-modal').addEventListener('click', function() {
+            document.getElementById('custom-modal').classList.remove('active');
+        });
+
+        // Close modals when clicking outside
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        });
+
+        // Form submissions
+        document.getElementById('appointment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show success message
+            const successMessage = document.getElementById('success-message');
+            successMessage.style.transform = 'translateX(0)';
+            
+            setTimeout(() => {
+                successMessage.style.transform = 'translateX(100%)';
+            }, 3000);
+
+            // Reset form
+            this.reset();
+        });
+
+        // Custom design form submission
+        document.querySelector('#custom-modal form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show success message
+            const successMessage = document.getElementById('success-message');
+            successMessage.style.transform = 'translateX(0)';
+            
+            setTimeout(() => {
+                successMessage.style.transform = 'translateX(100%)';
+            }, 3000);
+
+            // Close modal and reset form
+            document.getElementById('custom-modal').classList.remove('active');
+            this.reset();
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.backgroundColor = 'rgba(244, 63, 94, 0.95)';
+            } else {
+                nav.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+            }
+        });
+
+        // Parallax effect for floating shapes
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelectorAll('.floating');
+            
+            parallax.forEach((element, index) => {
+                const speed = 0.5 + (index * 0.1);
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            gsap.to('.floating-icon', {
+                opacity: 0.7,
+                duration: 0.5,
+                stagger: 0.1
+            });
+        });
+
+        // Image lazy loading
+        const images = document.querySelectorAll('img');
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.style.opacity = '0';
+                    img.onload = function() {
+                        gsap.to(img, { opacity: 1, duration: 0.5 });
+                    };
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        images.forEach(img => imageObserver.observe(img));
+
+        // Add testimonial carousel auto-scroll
+        let testimonialIndex = 0;
+        const testimonials = document.querySelectorAll('.testimonial-card');
+        
+        function showTestimonial(index) {
+            testimonials.forEach((testimonial, i) => {
+                if (i === index) {
+                    gsap.to(testimonial, { scale: 1.05, duration: 0.3 });
+                } else {
+                    gsap.to(testimonial, { scale: 1, duration: 0.3 });
+                }
+            });
+        }
+
+        setInterval(() => {
+            testimonialIndex = (testimonialIndex + 1) % testimonials.length;
+            showTestimonial(testimonialIndex);
+        }, 4000);
+    </script>
+</body>
+</html>
